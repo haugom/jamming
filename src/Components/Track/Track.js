@@ -2,13 +2,27 @@ import React, { Component } from 'react';
 import './Track.css';
 
 export default class Track extends Component {
+
+    constructor(props) {
+        super(props);
+        this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
+    }
+
     renderAction(isRemoval) {
-        const trackActionIcon = (isRemoval === true) ? '+' : '-';
+        const trackActionIcon = (isRemoval === false) ? '+' : '-';
+        const method = (isRemoval === false) ? this.addTrack : this.removeTrack;
         return (
-            <a className='Track-action'>
+            <a onClick={method} className='Track-action'>
                 {trackActionIcon}
             </a>
         );
+    }
+    addTrack() {
+        this.props.onAdd(this.props.track);
+    }
+    removeTrack() {
+        this.props.onRemove(this.props.track);
     }
     render() {
         console.log(this.props.track);
@@ -24,7 +38,7 @@ export default class Track extends Component {
                         {this.props.track.album}
                     </p>
                 </div>
-                {this.renderAction(true)}
+                {this.renderAction(this.props.isRemoval)}
             </div>
         );
     }

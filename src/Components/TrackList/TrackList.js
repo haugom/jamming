@@ -9,7 +9,7 @@ export default class TrackList extends Component {
                 <div className="TrackList">
                     {
                         this.props.tracks.map((track) => {
-                            return (<Track key={track.id} track={track}/>);
+                            return (<Track onAdd={this.props.onAdd} onRemove={this.props.onRemove} isRemoval={this.props.isRemoval} key={track.id} track={track}/>);
                         })
                     }
                 </div>
