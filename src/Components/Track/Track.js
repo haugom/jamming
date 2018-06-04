@@ -24,6 +24,7 @@ export default class Track extends Component {
                         {this.props.track.album}
                     </p>
                 </div>
+                {this.renderAction(true)}
             </div>
         );
     }

@@ -12,6 +12,10 @@ export default class App extends Component {
             searchResult: [
                 {name: 'Money money money', artitst: 'Abba', id: '1', album: 'For the music'},
                 {name: 'Omen', artist: 'Omen', id: '2', album: 'Bad omen'}
+            ],
+            playlistName: 'my playlist',
+            playlistTracks: [
+                {name: 'some track', artitst: 'some artist', id: '3', album: 'some album'}
             ]
         }
     }
@@ -27,7 +31,7 @@ export default class App extends Component {
                     <SearchBar/>
                     <div className="App-playlist">
                         <SearchResults searchResult={this.state.searchResult}/>
-                        <Playlist />
+                        <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
                     </div>
                 </div>
             </div>

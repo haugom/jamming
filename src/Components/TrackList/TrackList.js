@@ -4,11 +4,11 @@ import Track from '../Track/Track';
 
 export default class TrackList extends Component {
     render() {
-        if (this.props.searchResult) {
+        if (this.props.tracks) {
             return (
                 <div className="TrackList">
                     {
-                        this.props.searchResult.map((track) => {
+                        this.props.tracks.map((track) => {
                             return (<Track key={track.id} track={track}/>);
                         })
                     }
