@@ -25,7 +25,6 @@ export default class Track extends Component {
         this.props.onRemove(this.props.track);
     }
     render() {
-        console.log(this.props.track);
         return (
             <div className="Track">
                 <div className="Track-information">
