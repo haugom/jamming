@@ -3,6 +3,7 @@ import './App.css';
 import SearchResults from '../SearchResults/SearchResults';
 import SearchBar from '../SearchBar/SearchBar';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 
 export default class App extends Component {
 
@@ -22,6 +23,9 @@ export default class App extends Component {
         this.removeTrack = this.removeTrack.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
+        this.search = this.search.bind(this);
+        Spotify.initModule(window);
+        Spotify.getAccessToken(window);
     }
 
     addTrack(track) {
@@ -63,6 +67,11 @@ export default class App extends Component {
         return trackURIs;
     }
 
+    search(searchTerm) {
+        console.log(`the search term: ${searchTerm}`);
+
+    }
+
     render() {
         return (
             <div>
@@ -70,7 +79,7 @@ export default class App extends Component {
                     <span className="highlight">mmm</span>
                     ing</h1>
                 <div className="App">
-                    <SearchBar/>
+                    <SearchBar onSearch={this.search}/>
                     <div className="App-playlist">
                         <SearchResults onAdd={this.addTrack} searchResult={this.state.searchResult}/>
                         <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>

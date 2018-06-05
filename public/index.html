@@ -42,4 +42,12 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <!--to polygot ie-->
+  <script>
+      try { if (new URLSearchParams('q=%2B').get('q') !== '+') throw {}; }
+      catch (error) {
+          window.URLSearchParams = void 0;
+          document.write('<script src="/js/url-search-params.js"><'+'/script>');
+      }
+  </script>
 </html>
