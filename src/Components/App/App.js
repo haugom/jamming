@@ -4,6 +4,7 @@ import SearchResults from '../SearchResults/SearchResults';
 import SearchBar from '../SearchBar/SearchBar';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
+import Login from '../Login/Login';
 
 export default class App extends Component {
 
@@ -17,15 +18,26 @@ export default class App extends Component {
             playlistName: 'my playlist',
             playlistTracks: [
                 {name: 'Strongest (Alan Walker Remix)', artitst: 'Alan Walker', id: '2r9hCNjupNy2C2g3r6SNz6', album: 'Remix'}
-            ]
+            ],
+            tokenInfo: {
+                accessToken: '',
+                expiresIn: 0,
+                state: ''
+            }
         }
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.search = this.search.bind(this);
-        Spotify.initModule(window);
-        Spotify.getAccessToken(window);
+        this.expireToken = this.expireToken.bind(this);
+        Spotify.initModule(window, this.expireToken);
+
+        // comment in this like to auto-login to spotify
+        // this.state.tokenInfo = Spotify.getTokenInfo(true);
+
+        // this will not login directly but display a login button which redirects to spotify
+        this.state.tokenInfo = Spotify.getTokenInfo(false);
     }
 
     addTrack(track) {
@@ -69,23 +81,51 @@ export default class App extends Component {
 
     search(searchTerm) {
         console.log(`the search term: ${searchTerm}`);
+        let _this = this;
+        Spotify.search(searchTerm).then((newSearchResult) => {
+            _this.setState({
+                searchResult: newSearchResult
+            });
+        });
+    }
 
+    expireToken() {
+        this.setState({
+            tokenInfo: {
+                accessToken: ''
+            }
+        });
+        // TODO: alert user that token expired
+        console.log(`token expired: ${this.state.tokenInfo}`);
     }
 
     render() {
-        return (
-            <div>
-                <h1>Ja
-                    <span className="highlight">mmm</span>
-                    ing</h1>
-                <div className="App">
-                    <SearchBar onSearch={this.search}/>
-                    <div className="App-playlist">
-                        <SearchResults onAdd={this.addTrack} searchResult={this.state.searchResult}/>
-                        <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+        if (this.state.tokenInfo.accessToken === '') {
+            return (
+                <div>
+                    <h1>Ja
+                        <span className="highlight">mmm</span>
+                        ing</h1>
+                    <div className="App">
+                        <Login spotify={Spotify} />
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <h1>Ja
+                        <span className="highlight">mmm</span>
+                        ing</h1>
+                    <div className="App">
+                        <SearchBar onSearch={this.search}/>
+                        <div className="App-playlist">
+                            <SearchResults onAdd={this.addTrack} searchResult={this.state.searchResult}/>
+                            <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
