@@ -11,14 +11,9 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchResult: [
-                {name: 'Voulez-Vous', artitst: 'Abba', id: '2NmpePwcU5msK7cYZBWiBt', album: 'For the music'},
-                {name: 'Omen iii', artist: 'Magic Affair', id: '5FA90DipIi1TKifttlVKF1', album: 'Single Edit'},
-            ],
-            playlistName: 'my playlist',
-            playlistTracks: [
-                {name: 'Strongest (Alan Walker Remix)', artitst: 'Alan Walker', id: '2r9hCNjupNy2C2g3r6SNz6', album: 'Remix'}
-            ],
+            searchResult: [],
+            playlistName: 'New Playlist',
+            playlistTracks: [],
             tokenInfo: {
                 accessToken: '',
                 expiresIn: 0,
@@ -64,18 +59,22 @@ export default class App extends Component {
     }
 
     updatePlaylistName(name) {
-        console.log(`updating name: ${name}`);
         this.setState({
             playlistName: name
-        })
+        });
     }
 
-    savePlaylist() {
+    async savePlaylist() {
         const trackURIs = [];
         this.state.playlistTracks.forEach((track) => {
             trackURIs.push(`spotify:track:${track.id}`);
         });
         console.log(trackURIs);
+        await Spotify.savePlaylist(this.state.playlistName, trackURIs);
+        this.setState({
+            playlistTracks: [],
+            playlistName: 'New Playlist'
+        });
         return trackURIs;
     }
 

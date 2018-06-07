@@ -1,20 +1,23 @@
 const Spotify = (function() {
     // vars
-    let tokenInfo, window, authUrl, clientId, redirectUri;
+    let tokenInfo, window, authUrl, clientId, redirectUri, corsProxy, spotifyApi,
 
     // public methods
-    let initModule, getTokenInfo, makeAuthorizeRequestToSpotify, searchSpotify;
+    initModule, getTokenInfo, makeAuthorizeRequestToSpotify, searchSpotify, savePlaylist,
 
     // callback methods
-    let expireToken;
+    expireToken,
 
     //private methods
-    let checkForErrorInQuerystring, getStateFromQuerystring, getUrlParameter, getNormalUrlParameter, getTokenInfoFromHashQueryString;
+    checkForErrorInQuerystring, getStateFromQuerystring, getUrlParameter, getNormalUrlParameter,
+        getTokenInfoFromHashQueryString, makeAuthorizationHeader;
 
     // initialize module with window + callback to call when token expires
     initModule = function($, expireTokenCallback) {
         window = $;
         authUrl = 'https://accounts.spotify.com/authorize';
+        spotifyApi = 'https://api.spotify.com/v1';
+        corsProxy = 'https://cors-anywhere.herokuapp.com/';
         tokenInfo = {
             accessToken: ''
         };
@@ -97,17 +100,21 @@ const Spotify = (function() {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
+    makeAuthorizationHeader = function() {
+        return `Bearer ${tokenInfo.access_token}`;
+    };
+
     searchSpotify = function(term) {
         // let token = tokenInfo.access_token;
         // console.log(`Spotify seach: ${term}  token: ${token}`);
         // debugger;
 
         return fetch(
-            `https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/search?type=track&q=${term}`, {
+            `${corsProxy}${spotifyApi}/search?type=track&q=${term}`, {
             mode: 'cors',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${tokenInfo.access_token}`
+                'Authorization': makeAuthorizationHeader()
             }
         }).then((response) => {
             return response.json();
@@ -128,11 +135,68 @@ const Spotify = (function() {
         });
     };
 
+    savePlaylist = async function(playlistName, tracks) {
+        if (typeof playlistName === 'string' && Array.isArray(tracks) && tracks.length > 0) {
+
+            let userId, playlistId;
+
+            await fetch(
+                `${corsProxy}${spotifyApi}/me`, {
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': makeAuthorizationHeader()
+                    }
+                }
+            ).then((response) => {
+                return response.json();
+            }).then((jsonResponse) => {
+                userId = jsonResponse.id;
+            });
+            console.log(`user id: ${userId}`);
+
+            await fetch(
+                `${corsProxy}${spotifyApi}/users/${userId}/playlists`, {
+                    method: 'post',
+                    body: JSON.stringify({
+                        name: playlistName,
+                        description: 'created with jamming project'
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': makeAuthorizationHeader()
+                    }
+                }
+            ).then((response) => {
+                return response.json();
+            }).then((jsonResponse) => {
+                playlistId = jsonResponse.id
+            });
+            console.log(`playlistId: ${playlistId}`);
+
+            await fetch(
+                `${corsProxy}${spotifyApi}/users/${userId}/playlists/${playlistId}/tracks`, {
+                    method: 'post',
+                    body: JSON.stringify({
+                        uris: tracks
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': makeAuthorizationHeader()
+                    }
+                }
+            );
+        }
+    };
+
     return {
         initModule: initModule,
         getTokenInfo: getTokenInfo,
         makeAuthorizeRequestToSpotify: makeAuthorizeRequestToSpotify,
-        search: searchSpotify
+        search: searchSpotify,
+        savePlaylist: savePlaylist
     };
 }());
 
