@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  jamming:
+    privileged: false
+    image: jamming:test
+    container_name: jamming
+    restart: always
+    networks:
+      - web
+    expose:
+      - "80"
+    labels:
+      - "traefik.backend=jamming"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:jamming.web.cloud.haugom.org"
+      - "traefik.frontend.passHostHeader=true"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.default.protocol=http"
+
+networks:
+  web:
+    external: true
