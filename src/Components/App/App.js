@@ -14,6 +14,7 @@ export default class App extends Component {
             searchResult: [],
             playlistName: 'New Playlist',
             playlistTracks: [],
+            loading: false,
             tokenInfo: {
                 accessToken: '',
                 expiresIn: 0,
@@ -70,10 +71,16 @@ export default class App extends Component {
             trackURIs.push(`spotify:track:${track.id}`);
         });
         console.log(trackURIs);
+        this.setState({
+            loading: true
+        });
         await Spotify.savePlaylist(this.state.playlistName, trackURIs);
         this.setState({
             playlistTracks: [],
             playlistName: 'New Playlist'
+        });
+        this.setState({
+            loading: false
         });
         return trackURIs;
     }
@@ -120,7 +127,7 @@ export default class App extends Component {
                         <SearchBar onSearch={this.search}/>
                         <div className="App-playlist">
                             <SearchResults onAdd={this.addTrack} searchResult={this.state.searchResult}/>
-                            <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+                            <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} loading={this.state.loading} />
                         </div>
                     </div>
                 </div>
