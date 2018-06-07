@@ -21,7 +21,6 @@ const Spotify = (function() {
         clientId = '8add2c0fb68843499b39cbe112a360ed';
         redirectUri = encodeURIComponent(`${window.location.protocol}//${window.location.host}${window.location.pathname}`);
         expireToken = expireTokenCallback;
-        searchSpotify.bind(this);
     };
 
     getTokenInfo = function(redirectToSpotify) {
