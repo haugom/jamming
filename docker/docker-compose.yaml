@@ -3,7 +3,7 @@ version: '3.1'
 services:
   jamming:
     privileged: false
-    image: jamming:1.0.0
+    image: jamming:1.0.1
     container_name: jamming
     restart: always
     networks:
