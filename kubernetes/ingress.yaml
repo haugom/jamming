@@ -1,0 +1,18 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jamming
+spec:
+  tls:
+    - hosts:
+      - jamming.k8s.cloud.haugom.org
+      secretName: tls-jamming
+  rules:
+    - host: jamming.k8s.cloud.haugom.org
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: jamming
+            servicePort: 80

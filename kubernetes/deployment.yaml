@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jamming
+  labels:
+    app: jamming
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jamming
+  template:
+    metadata:
+      labels:
+        app: jamming
+    spec:
+      containers:
+      - name: jamming
+        image: haugom/jamming:1.0.6
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "24Mi"
+            cpu: "50m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
