@@ -8,16 +8,16 @@ spec:
   secretName: tls-jamming
   issuerRef:
     name: letsencrypt-prod
-  commonName: jamming.k8s.cloud.haugom.org
+  commonName: {{ .hostname }}
   dnsNames:
-  - jamming.k8s.cloud.haugom.org
+  - {{ .hostname }}
   acme:
     config:
     - http01:
         ingressClass: nginx
       domains:
-      - jamming.k8s.cloud.haugom.org
+      - {{ .hostname }}
     - http01:
         ingress: my-ingress
       domains:
-      - jamming.k8s.cloud.haugom.org
+      - {{ .hostname }}

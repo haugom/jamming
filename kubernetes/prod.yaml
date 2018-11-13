@@ -1,0 +1,6 @@
+---
+context: haugom
+global:
+  hostname: jamming.k8s.cloud.haugom.org
+include: 
+  - name: deployment
