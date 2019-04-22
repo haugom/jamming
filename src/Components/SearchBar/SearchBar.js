@@ -33,7 +33,7 @@ export default class SearchBar extends Component {
         return (
             <div className="SearchBar">
                 <input onChange={this.handleTermChange} onKeyDown={this.handleKeyDown} placeholder="Enter A Song, Album, or Artist"/>
-                <a onClick={this.search}>SEARCH</a>
+                <button onClick={this.search}>SEARCH</button>
             </div>
         );
     }

@@ -21,10 +21,13 @@
     outline: none;
 }
 
-.SearchBar a {
+.SearchBar button {
+    border: none;
+    color: inherit;
+    font-family: inherit;
     cursor: pointer;
     width: 8.11rem;
-    padding: .77rem 0;
+    padding: .66rem 0;
     border-radius: 54px;
     background-color: #010c3f;
     text-align: center;
@@ -32,6 +35,6 @@
     transition: background-color .25s;
 }
 
-.SearchBar a:hover {
+.SearchBar button:hover {
     background-color: rgba(108, 65, 233, .7);
 }

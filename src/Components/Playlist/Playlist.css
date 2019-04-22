@@ -24,8 +24,11 @@
 .Playlist-save {
     cursor: pointer;
     width: 10rem;
-    padding: .77rem 0;
+    padding: .64rem 0;
     border-radius: 54px;
+    color: #fff;
+    border: none;
+    font-family: inherit;
     margin-top: 1.27rem;
     background-color: #6c41ec;
     text-align: center;
@@ -36,9 +39,15 @@
 .Playlist-save:hover {
     background-color: rgba(108, 65, 233, .7);
 }
+.Playlist-save:hover,
+.Playlist-save:focus,
+.Playlist-save:active {
+    text-decoration: none;
+    outline: none;
+}
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
 }
 

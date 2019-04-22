@@ -5,14 +5,25 @@
 }
 
 .Track-action {
+    background-color: transparent;
+    border: none;
+    color: #fff;
     cursor: pointer;
     padding: .5rem;
     font-size: 1.05rem;
+    font-family: inherit;
     transition: color .25s;
 }
 
 .Track-action:hover {
     color: rgba(265, 265, 265, .5);
+}
+
+.Track-action:hover,
+.Track-action:focus,
+.Track-action:active {
+    text-decoration: none;
+    outline: none;
 }
 
 .Track-information {

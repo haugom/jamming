@@ -13,9 +13,9 @@ export default class Track extends Component {
         const trackActionIcon = (isRemoval === false) ? '+' : '-';
         const method = (isRemoval === false) ? this.addTrack : this.removeTrack;
         return (
-            <a onClick={method} className='Track-action'>
+            <button onClick={method} className='Track-action'>
                 {trackActionIcon}
-            </a>
+            </button>
         );
     }
     addTrack() {
