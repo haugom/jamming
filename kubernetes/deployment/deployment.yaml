@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: jamming
-        image: haugom/jamming:1.0.7
+        image: haugom/jamming:{{ .app_tag }}
         imagePullPolicy: Always
         ports:
         - containerPort: 80

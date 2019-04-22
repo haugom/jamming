@@ -2,5 +2,6 @@
 context: haugom
 global:
   hostname: jamming.k8s.cloud.haugom.org
+  app_tag: 1.0.10
 include: 
   - name: deployment
