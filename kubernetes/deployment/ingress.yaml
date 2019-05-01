@@ -6,6 +6,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: {{ .hostname }}
 #    nginx.ingress.kubernetes.io/upstream-vhost: $service_name.$namespace.svc.cluster.local
   name: jamming
+  namespace: haugom
 spec:
   tls:
     - hosts:

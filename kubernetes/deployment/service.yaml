@@ -3,6 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: jamming
+  namespace: haugom
 spec:
   selector:
     app: jamming
