@@ -1,7 +1,5 @@
 # build environment
-#FROM node:10.9-alpine as builder
 FROM node:11 as builder
-#FROM node:8 as builder
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
