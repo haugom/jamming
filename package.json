@@ -1,6 +1,6 @@
 {
   "name": "jamming",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
