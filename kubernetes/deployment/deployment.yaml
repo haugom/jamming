@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: jamming
-        image: quay.io/haugom/jamming:{{ .app_tag }}
+        image: haugom/jamming:{{ .app_tag }}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -33,4 +33,3 @@ spec:
             cpu: "50m"
           limits:
             memory: "64Mi"
-            cpu: "100m"
