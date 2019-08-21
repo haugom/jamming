@@ -3,7 +3,7 @@ version: '3.1'
 services:
   jamming:
     privileged: false
-    image: haugom/jamming:1.0.16
+    image: haugom/jamming:1.0.17
     container_name: jamming
     restart: always
     networks:

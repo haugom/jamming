@@ -3,9 +3,10 @@ FROM node:11 as builder
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json /usr/src/app/package.json
-RUN npm install react-scripts@3.0.0 -g
-RUN npm install
+COPY package.json package-lock.json /usr/src/app/
+RUN npm install --save react-scripts@3.1.1
+RUN npm install --save-dev typescript
+RUN npm install --save-dev eslint
 COPY . /usr/src/app
 RUN npm run build
 
