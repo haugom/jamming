@@ -6,7 +6,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
-    "snyk": "^1.217.3"
+    "snyk": "^1.258.2"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
