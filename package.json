@@ -1,20 +1,17 @@
 {
   "name": "jamming",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": true,
   "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
-    "snyk": "^1.230.5"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
     "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "REACT_APP_VERSION=$npm_package_version react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,9 +27,8 @@
     "last 1 firefox version",
     "last 1 safari version"
   ],
-  "snyk": true,
   "devDependencies": {
-    "eslint": "^6.2.1",
-    "typescript": "^3.5.3"
+    "eslint": "^6.8.0",
+    "typescript": "^3.9.10"
   }
 }
